@@ -4,7 +4,7 @@ Submitted by: Christopher Lopez
 
 About this web app: This app will showcase some of my favorite content creators.
 
-Time spent: **👉🏿 X** hours
+Time spent: **👉🏿 6** hours
 
 ## Required Features
 
