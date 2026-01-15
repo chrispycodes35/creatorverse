@@ -1,0 +1,442 @@
+@use "pico";
+
+/* Black background with good contrast */
+:root {
+  --app-bg: #16151e;
+  --app-bg-2: #0a0a0a;
+  --app-text: rgba(255, 255, 255, 0.95);
+  --app-muted: rgba(255, 255, 255, 0.75);
+  --app-border: rgba(255, 255, 255, 0.15);
+
+  /* Override Pico to work with black background */
+  --pico-background-color: var(--app-bg);
+  --pico-color: var(--app-text);
+  --pico-muted-color: var(--app-muted);
+  --pico-h1-color: var(--app-text);
+  --pico-h2-color: var(--app-text);
+  --pico-h3-color: var(--app-text);
+  --pico-h4-color: var(--app-text);
+  --pico-h5-color: var(--app-text);
+  --pico-h6-color: var(--app-text);
+  --pico-border-color: var(--app-border);
+  --pico-form-element-background-color: rgba(255, 255, 255, 0.08);
+  --pico-form-element-border-color: var(--app-border);
+  --pico-form-element-color: var(--app-text);
+  --pico-form-element-placeholder-color: var(--app-muted);
+  --pico-primary-background: #3b82f6;
+  --pico-primary-border: #3b82f6;
+  --pico-primary-color: #ffffff;
+  --pico-primary-hover-background: #2563eb;
+  --pico-primary-hover-border: #2563eb;
+  --pico-secondary-background: rgba(255, 255, 255, 0.12);
+  --pico-secondary-border: rgba(255, 255, 255, 0.2);
+  --pico-secondary-color: var(--app-text);
+  --pico-secondary-hover-background: rgba(255, 255, 255, 0.18);
+  --pico-secondary-hover-border: rgba(255, 255, 255, 0.25);
+  --pico-contrast-background: rgba(255, 255, 255, 0.2);
+  --pico-contrast-border: rgba(255, 255, 255, 0.3);
+  --pico-contrast-color: var(--app-text);
+  --pico-contrast-hover-background: rgba(255, 255, 255, 0.25);
+  --pico-contrast-hover-border: rgba(255, 255, 255, 0.35);
+}
+
+body {
+  background: var(--app-bg);
+  color: var(--app-text);
+  min-height: 100vh;
+}
+
+/* Ensure all text elements are readable on navy */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label,
+legend,
+strong,
+p,
+span,
+div {
+  color: var(--app-text);
+}
+
+a {
+  color: #93c5fd;
+}
+
+a:hover {
+  color: #bfdbfe;
+}
+
+/* Pico article/card backgrounds should be semi-transparent on navy */
+article,
+.card {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--app-border);
+}
+
+/* Creator cards - full white background with dark text */
+.creator-card {
+  background: #ffffff !important;
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #1a1a1a;
+}
+
+.creator-card header,
+.creator-card footer {
+  background: transparent !important;
+}
+
+.creator-card h3,
+.creator-card p,
+.creator-card a {
+  color: #1a1a1a;
+}
+
+.creator-card a {
+  color: #2563eb;
+}
+
+.creator-card a:hover {
+  color: #1d4ed8;
+}
+
+/* App layout tweaks on top of Pico */
+main.container {
+  padding-block: 2rem;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid var(--app-border);
+}
+
+.home-intro {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 3rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid var(--app-border);
+}
+
+.home-intro p {
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--app-text);
+}
+
+.page-title {
+  text-align: center;
+  margin-block: 2rem 1.5rem;
+}
+
+.page-actions {
+  margin-top: 2rem;
+  justify-content: center;
+}
+
+.top-left-actions {
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.add-button {
+  width: auto;
+}
+
+.compact-form {
+  max-width: 680px;
+  margin-inline: auto;
+}
+
+/* Grid layout - 3 columns max, then wrap */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Creator cards - fixed dimensions for consistency */
+.creator-card {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  height: 100%;
+  min-height: 480px;
+  max-height: 480px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.creator-card__title {
+  margin: 0;
+}
+
+.creator-card__media {
+  width: 180px;
+  height: 180px;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.creator-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+.creator-card__placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+  padding: 0.75rem;
+  color: var(--app-muted);
+}
+
+.creator-card__body {
+  padding-top: 0.75rem;
+}
+
+.creator-card__actions {
+  margin-top: auto;
+  padding-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 1.25rem;
+}
+
+.creator-card__actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Home buttons: bigger + centered */
+.home-actions {
+  margin-top: 2.5rem;
+}
+
+.home-actions [role='button'] {
+  font-size: 1.1rem;
+  padding: 0.85rem 1.25rem;
+}
+
+/* Glass-like button styling - reduced opacity but retain colors */
+button,
+a[role="button"] {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+button:hover,
+a[role="button"]:hover {
+  transform: translateY(-1px);
+}
+
+/* Red delete button with glass effect */
+.btn-danger {
+  background: rgba(220, 38, 38, 0.7) !important;
+  border-color: rgba(220, 38, 38, 0.5) !important;
+  color: white !important;
+}
+
+.btn-danger:hover {
+  background: rgba(220, 38, 38, 0.85) !important;
+  border-color: rgba(220, 38, 38, 0.7) !important;
+}
+
+/* Green add/create button with glass effect */
+.btn-success,
+.home-actions a[href*="add-creator"],
+.page-actions a[href*="add-creator"],
+form button[type="submit"] {
+  background: rgba(34, 197, 94, 0.7) !important;
+  border-color: rgba(34, 197, 94, 0.5) !important;
+  color: white !important;
+}
+
+form button[type="submit"]:hover,
+.home-actions a[href*="add-creator"]:hover,
+.page-actions a[href*="add-creator"]:hover {
+  background: rgba(34, 197, 94, 0.85) !important;
+  border-color: rgba(34, 197, 94, 0.7) !important;
+}
+
+/* Secondary buttons with glass effect */
+button.secondary,
+a.secondary,
+a[role="button"].secondary {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  color: var(--app-text) !important;
+}
+
+button.secondary:hover,
+a.secondary:hover,
+a[role="button"].secondary:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Primary/default buttons with glass effect */
+button:not(.secondary):not(.btn-danger):not(.btn-success),
+a[role="button"]:not(.secondary):not(.btn-danger):not(.btn-success) {
+  background: rgba(59, 130, 246, 0.7) !important;
+  border-color: rgba(59, 130, 246, 0.5) !important;
+  color: white !important;
+}
+
+button:not(.secondary):not(.btn-danger):not(.btn-success):hover,
+a[role="button"]:not(.secondary):not(.btn-danger):not(.btn-success):hover {
+  background: rgba(59, 130, 246, 0.85) !important;
+  border-color: rgba(59, 130, 246, 0.7) !important;
+}
+
+/* View Creator page styling */
+.view-creator-card {
+  max-width: 800px;
+  margin: 2rem auto 0;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-radius: 16px;
+  border: 1px solid var(--app-border);
+  color: var(--app-text);
+}
+
+.view-creator-card header {
+  text-align: center;
+  margin-bottom: 2rem;
+  background: transparent !important;
+}
+
+.view-creator-card header h2 {
+  margin: 0;
+  font-size: 2.5rem;
+  color: var(--app-text);
+}
+
+.view-creator-image {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.view-creator-image img {
+  border-radius: 16px;
+  max-width: 250px;
+  width: 100%;
+  height: auto;
+}
+
+.view-creator-card section {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+}
+
+.view-creator-card section h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: var(--app-text);
+}
+
+.view-creator-card section p {
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.view-creator-card section a {
+  color: #93c5fd;
+  word-break: break-all;
+}
+
+.view-creator-card section a:hover {
+  color: #bfdbfe;
+}
+
+.view-creator-card footer {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--app-border);
+  text-align: center;
+  background: transparent;
+}
+
+.view-creator-card footer .page-actions {
+  justify-content: center;
+  margin-top: 0;
+}
+
+/* Edit Creator form styling */
+.edit-creator-card {
+  max-width: 700px;
+  margin: 2rem auto 0;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  border: 1px solid var(--app-border);
+}
+
+.compact-form {
+  max-width: 100%;
+}
+
+.compact-form label {
+  display: block;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.compact-form input,
+.compact-form textarea {
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
+.error-message {
+  background: rgba(220, 38, 38, 0.15);
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.error-message pre {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
